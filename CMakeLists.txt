@@ -17,7 +17,7 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-add_executable(raytracer_cpp main.cpp tuple.cpp utils.cpp colour.cpp)
+add_executable(raytracer_cpp main.cpp tuple.cpp utils.cpp colour.cpp canvas.cpp)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
@@ -39,6 +39,14 @@ add_executable(
   utils.cpp
 )
 
+add_executable(
+  canvas_test
+  canvas_test.cpp
+  canvas.cpp
+  colour.cpp
+  utils.cpp
+)
+
 target_link_libraries(
   tuple_test
   gtest_main
@@ -49,6 +57,12 @@ target_link_libraries(
   gtest_main
 )
 
+target_link_libraries(
+  canvas_test
+  gtest_main
+)
+
 include(GoogleTest)
 gtest_discover_tests(tuple_test)
 gtest_discover_tests(colour_test)
+gtest_discover_tests(canvas_test)
